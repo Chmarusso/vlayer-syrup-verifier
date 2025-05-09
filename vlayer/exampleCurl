@@ -1,0 +1,3 @@
+curl 'https://api.maple.finance/v2/graphql' \
+  -H 'content-type: application/json' \
+  --data-raw '{"operationName":"getPortfolioData","variables":{"account":"0xc923e559b424d67a2e1facf8beda9fcb422dd5ac","accountId":"0xc923e559b424d67a2e1facf8beda9fcb422dd5ac"},"extensions":{"persistedQuery":{"version":1,"sha256Hash":"0a01b0cae68c71a035f5793cc2c16fc1a656483b3c3fbf2b5ccde6f829b8cc0d"}}}'

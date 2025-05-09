@@ -1,0 +1,29 @@
+{
+  "name": "kraken-web-proof",
+  "type": "module",
+  "scripts": {
+    "devnet:up": "docker compose --file docker-compose.devnet.yaml up -d --build --force-recreate",
+    "devnet:down": "docker compose --file docker-compose.devnet.yaml down",
+    "lint:solidity": "solhint '../src/**/*.sol' --max-warnings 0 && forge fmt ../src --check",
+    "lint-fix:solidity": "solhint '../src/**/*.sol' --fix --noPrompt && forge fmt ../src",
+    "prove:testnet": "VLAYER_ENV=testnet bun run prove.ts",
+    "prove:dev": "VLAYER_ENV=dev bun run prove.ts",
+    "test-web:dev": "echo \"No tests specified yet\"",
+    "test-web:testnet": "echo \"No tests specified yet\""
+  },
+  "dependencies": {
+    "@vlayer/react": "0.3.0-nightly-20250509-e3e36d24345cc2124a5d3bfe8caf83bc7cbf0eae",
+    "@vlayer/sdk": "0.3.0-nightly-20250509-e3e36d24345cc2124a5d3bfe8caf83bc7cbf0eae",
+    "viem": "2.27.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.5.4"
+  },
+  "devDependencies": {
+    "solhint": "^5.0.5",
+    "typescript": "^5.5.3"
+  },
+  "overrides": {
+    "viem": "2.27.0"
+  }
+}
