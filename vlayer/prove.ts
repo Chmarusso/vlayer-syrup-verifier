@@ -1,8 +1,8 @@
 /// <reference types="bun" />
 
 import { createVlayerClient } from "@vlayer/sdk";
-import proverSpec from "../out/KrakenProver.sol/KrakenProver";
-import verifierSpec from "../out/KrakenVerifier.sol/KrakenVerifier";
+import proverSpec from "../out/SyrupProver.sol/SyrupProver";
+import verifierSpec from "../out/SyrupVerifier.sol/SyrupVerifier";
 import {
   getConfig,
   createContext,
@@ -69,7 +69,7 @@ const hash = await vlayer.prove({
   chainId: chain.id,
 });
 const result = await vlayer.waitForProvingResult({ hash });
-const [proof, avgPrice] = result;
+const [proof, positionId, dripsEarned] = result;
 console.log("✅ Proof generated");
 
 console.log("⏳ Verifying...");
@@ -77,7 +77,7 @@ const txHash = await ethClient.writeContract({
   address: verifier,
   abi: verifierSpec.abi,
   functionName: "verify",
-  args: [proof, avgPrice],
+  args: [proof, positionId, dripsEarned],
   chain,
   account,
 });
@@ -90,3 +90,5 @@ await ethClient.waitForTransactionReceipt({
 });
 
 console.log("✅ Verified!");
+console.log("Drips earned: ", dripsEarned);
+console.log("Position ID: ", positionId);

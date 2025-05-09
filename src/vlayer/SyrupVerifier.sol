@@ -10,12 +10,20 @@ contract SyrupVerifier is Verifier {
     address public prover;
 
     mapping(string => int256) public positionIdToDripsEarned;
-
+    mapping(string => bool) public positionIdToClaimed;
     constructor(address _prover) {
         prover = _prover;
     }
 
     function verify(Proof calldata, string memory _positionId, int256 _dripsEarned) public onlyVerified(prover, SyrupProver.main.selector) {
         positionIdToDripsEarned[_positionId] = _dripsEarned;
+    }
+
+    function claim(string memory _positionId) public {
+        require(positionIdToDripsEarned[_positionId] > 0, "No drips earned");
+        require(!positionIdToClaimed[_positionId], "Already claimed");
+        // TODO: Add extra checks
+        positionIdToClaimed[_positionId] = true;
+        // TODO: Add logic to claim drips
     }
 }
